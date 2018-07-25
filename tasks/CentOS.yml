@@ -1,0 +1,35 @@
+---
+# tasks/CentOS.yml for repo_jenkins
+
+- name: set fact for task names to Add
+  set_fact:
+    wtd_repo_jenkins_task_name: "Add"
+  when: wtd_repo_jenkins_state == "present"
+
+- name: set fact for task names to Remove
+  set_fact:
+    wtd_repo_jenkins_task_name: "Remove"
+  when: wtd_repo_jenkins_state != "present"
+
+- name: "{{ wtd_repo_jenkins_task_name }} key for Jenkins repository"
+  rpm_key:
+    state: "{{ wtd_repo_jenkins_state }}"
+    key: https://pkg.jenkins.io/redhat/jenkins.io.key
+  become: yes
+
+- name: "{{ wtd_repo_jenkins_task_name }} repository for Jenkins"
+  yum_repository:
+    name: jenkins
+    description: Jenkins
+    file: jenkins
+    baseurl: "http://pkg.jenkins.io/redhat"
+    gpgcheck: yes
+    gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+    state: "{{ wtd_repo_jenkins_state }}"
+  become: yes
+
+- name: Activate cleanup handler
+  command: "true"
+  notify:
+    - Cleanup yum metadata
+  when: wtd_repo_jenkins_state != "present"

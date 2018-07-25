@@ -1,0 +1,26 @@
+dependencies:
+  - while_true_do.yum
+
+galaxy_info:
+  role_name: repo_jenkins
+  author: while-true-do.org
+  description: A role that installs the yum repository for Jenkins continuous integration and continuous delivery application.
+  company: while-true-do.org
+
+  github_branch: master
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: EL
+    versions:
+    - 7
+
+  galaxy_tags:
+    - repository
+    - yum
+    - jenkins
+    - continuous
+    - integration
+    - delivery

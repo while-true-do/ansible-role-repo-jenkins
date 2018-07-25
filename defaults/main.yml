@@ -1,0 +1,5 @@
+---
+# defaults/main.yml for repo_jenkins
+
+# repository state can be set to "present" / "absent"
+wtd_repo_jenkins_state: "present"
